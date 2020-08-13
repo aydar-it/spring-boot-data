@@ -23,18 +23,13 @@ public class BookController {
     @GetMapping
     public String showPage(Model model,
                            @RequestParam(name = "p", defaultValue = "1") Integer pageIndex,
-                           @RequestParam(defaultValue = "") String det,
-                           @RequestParam(defaultValue = "") String fic,
-                           @RequestParam(defaultValue = "") String fan,
                            @RequestParam Map<String, String> params
     ) {
         BookFilter bf = new BookFilter(params);
         Page<Book> page = bookService.findAll(bf.getSpec(), pageIndex - 1, 2);
         model.addAttribute("books", page);
         model.addAttribute("genres", Genre.values());
-        model.addAttribute("det", det);
-        model.addAttribute("fic", fic);
-        model.addAttribute("fan", fan);
+        model.addAttribute("map", params);
         return "book-store";
     }
 }

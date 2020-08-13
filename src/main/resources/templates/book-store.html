@@ -12,6 +12,14 @@
     <h1>Books:</h1>
 
     <form th:action="@{'/books'}" method="get">
+        <div class="form-group">
+            <label>Максимальная цена</label>
+            <input th:value="${param.maxPrice != null ? param.maxPrice : null}" type="number" class="form-control form-control-sm" name="maxPrice">
+        </div>
+        <div class="form-group">
+            <label>Минимальная цена</label>
+            <input th:value="${param.minPrice != null ? param.minPrice : null}" type="number" class="form-control form-control-sm" name="minPrice">
+        </div>
         <div th:each="g : ${genres}">
             <input  class="form-check-input" type="checkbox" th:text="${g.genre}" th:name="${g.paramName}" />
         </div>
@@ -42,19 +50,19 @@
     <ul class="pagination justify-content-center font-weight-bold">
         <li class="page-item" th:classappend="${books.number eq 0} ? 'disabled'">
             <a class="page-link"
-               th:href="@{'/books?p=' + ${books.number lt 2 ? 1 : books.number} + '&fic=' + ${fic} + '&fan=' + ${fan} + '&det=' + ${det}}"
+               th:href="@{'/books?p=' + ${books.number lt 2 ? 1 : books.number} + '&fic=' + ${map.get('fic')} + '&fan=' + ${map.get('fan')} + '&det=' + ${map.get('det')} + '&maxPrice=' + ${map.get('maxPrice')} + '&minPrice=' + ${map.get('minPrice')}}"
                aria-label="Previous" title="Previous Page" data-toggle="tooltip">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
         <li class="page-item" th:classappend="${i eq books.number + 1} ? 'active'"
             th:each="i : ${#numbers.sequence( 1, books.totalPages, 1)}">
-            <a class="page-link" th:href="@{'/books?p=' + ${i} + '&fic=' + ${fic} + '&fan=' + ${fan} + '&det=' + ${det}}" th:text="${i}"
+            <a class="page-link" th:href="@{'/books?p=' + ${i} + '&fic=' + ${map.get('fic')} + '&fan=' + ${map.get('fan')} + '&det=' + ${map.get('det')} + '&maxPrice=' + ${map.get('maxPrice')} + '&minPrice=' + ${map.get('minPrice')}}" th:text="${i}"
                th:title="${'Page '+ i}" data-toggle="tooltip"></a>
         </li>
         <li class="page-item" th:classappend="${books.number + 1 eq books.totalPages} ? 'disabled'">
             <a class="page-link"
-               th:href="@{'/books?p=' + ${books.number + 2} + '&fic=' + ${fic} + '&fan=' + ${fan} + '&det=' + ${det}}"
+               th:href="@{'/books?p=' + ${books.number + 2} + '&fic=' + ${map.get('fic')} + '&fan=' + ${map.get('fan')} + '&det=' + ${map.get('det')} + '&maxPrice=' + ${map.get('maxPrice')} + '&minPrice=' + ${map.get('minPrice')}}"
                aria-label="Next" title="Next Page" data-toggle="tooltip">
                 <span aria-hidden="true">&raquo;</span>
             </a>
